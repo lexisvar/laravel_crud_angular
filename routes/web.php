@@ -12,5 +12,10 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('index');
 });
+
+Route::get('api/cliente/{cliente_id?}','ClienteController@index');
+Route::post('api/cliente/','ClienteController@store');
+Route::post('api/cliente/{cliente_id}','ClienteController@update');
+Route::delete('api/cliente/{cliente_id}','ClienteController@destroy');
