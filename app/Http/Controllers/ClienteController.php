@@ -29,8 +29,8 @@ class ClienteController extends Controller
      */
     public function store(Request $request)
     {
-        echo 'hello'; exit;
-        $cliente = new Cliente;
+        //var_dump($request->all());
+        $cliente = new Cliente();
         $cliente->cliente_nombre = $request->input('cliente_nombre');
         $cliente->cliente_cedula = $request->input('cliente_cedula');
         $cliente->cliente_nit = $request->input('cliente_nit');

@@ -13,7 +13,7 @@ app.controller('ClienteController', function ($scope,$http, API_URL) {
                 break;
             case 'edit' :
                 $scope.form_title = "Detalle del Cliente";
-
+                $scope.cliente_id = cliente_id;
                 $http.get(API_URL + 'cliente/' +cliente_id).success(function (response) {
 
                     $scope.cliente = response;
@@ -32,20 +32,22 @@ app.controller('ClienteController', function ($scope,$http, API_URL) {
 
         var url = API_URL + 'cliente';
         if(modalestado === 'edit'){
-            url += "/" +id;
+            url += "/" +cliente_id;
         }
-        $http({
-            method: 'POST',
-            url : url,
-            data : $.param($scope.cliente),
-            headers: {'Content-Type' : 'application/x-www-form-urlenconded'}
-        }).success(function (response) {
-            console.log(response);
-            location.reload();
-        }).error(function (response) {
-            console.log(response);
-            alert('Ha ocurrido un error!');
+        $http.post(url, $scope.cliente).
+        success(function(data){
+            $('#myModal').modal('hide');
+            $scope.clientes = {};
+            $http.get(API_URL + 'cliente').success(function(data){
+                $scope.clientes = data;
+            });
+
+        }).error(function(data, status) {
+            console.log("Estado "+status);
+            console.log("Data "+data);
         });
+
+
     }
 
     //Eliminar Cliente
@@ -56,8 +58,10 @@ app.controller('ClienteController', function ($scope,$http, API_URL) {
                 method : 'DELETE',
                 url : API_URL + 'cliente/' + cliente_id
             }).success(function (data) {
-                console.log(data);
-                location.reload();
+
+                $http.get(API_URL + 'cliente').success(function(data){
+                    $scope.clientes = data;
+                });
             }).error(function (data) {
                 console.log(data);
                 alert('No se puede eliminar');
