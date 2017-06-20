@@ -6,7 +6,7 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Ejercicio con angular</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+    <script src="https://code.angularjs.org/1.5.7/angular.min.js"></script>
     <script src="{{ asset('angular/angular-route.min.js') }}"></script>
     <script
             src="https://code.jquery.com/jquery-3.2.1.js"
@@ -59,34 +59,33 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">@{{form_title}}</h4>
+                <h4 class="modal-title" id="myModalLabel">@{{form_title}}</h4>
             </div>
             <div class="modal-body">
-                <form name="frmCliente" class="form-horizontal" novalidate>
-                    <div class="form-group">
-                        <label for="cliente_nombre">Nombre:</label>
-                        <input name="cliente_nombre" type="text" class="form-control" id="cliente_nombre" value="@{{cliente.cliente_nombre}}" ng-model="cliente.cliente_nombre" ng-required="true">
-                        <span ng-show="frmCliente.clienteNombre.$invalid && frmCliente.clienteNombre.$touched">El campo Nombre es requerido</span>
-                    </div>
+                <div class="form-group">
+                    <form name="frmCliente" class="form-horizontal" novalidate="">
+
+                            <label for="cliente_nombre">Nombre:</label>
+                            <input name="cliente_nombre" type="text" class="form-control" id="cliente_nombre" value="@{{cliente.cliente_nombre}}" ng-model="cliente.cliente_nombre" ng-required="true" value="@{{ cliente.cliente_nombre }}">
+                            <span ng-show="frmCliente.cliente_nombre.$invalid && frmCliente.cliente_nombre.$touched">El campo Nombre es requerido</span>
 
 
-                    <div class="form-group">
-                        <label for="cliente_cedula">Cédula:</label>
-                        <input name="cliente_cedula" type="text" class="form-control" id="cliente_cedula" value="@{{cliente.cliente_cedula}}" ng-model="cliente.cliente_cedula" ng-required="true">
-                        <span ng-show="frmCliente.clienteCedula.$invalid && frmCliente.clienteCedula.$touched">El campo Cédula es requerido</span>
-                    </div>
 
-                    <div class="form-group">
-                        <label for="cliente_nit">Nit:</label>
-                        <input name="cliente_nit" type="text" class="form-control" id="cliente_nit" value="@{{cliente.cliente_nit}}" ng-model="cliente.cliente_nit" ng-required="true">
-                        <span ng-show="frmCliente.clienteNit.$invalid && frmCliente.clienteNit.$touched">El campo Nit es requerido</span>
-                    </div>
-                    <div class="checkbox">
-                        <label><input type="checkbox"> Remember me</label>
-                    </div>
-                </form>
+
+                            <label for="cliente_cedula">Cédula:</label>
+                            <input mask="999.999.999" clean="true" name="cliente_cedula" type="text" class="form-control" id="cliente_cedula" value="@{{cliente.cliente_cedula}}" ng-model="cliente.cliente_cedula" ng-required="true" value="@{{ cliente.cliente_cedula }}">
+                            <span ng-show="frmCliente.cliente_cedula.$invalid && frmCliente.cliente_cedula.$touched">El campo Cédula es requerido</span>
+
+
+
+                            <label for="cliente_nit">Nit:</label>
+                            <input mask="999.999.999-9" clean="true" name="cliente_nit" type="text" class="form-control" id="cliente_nit" value="@{{cliente.cliente_nit}}" ng-model="cliente.cliente_nit" ng-required="true" value="@{{ cliente.cliente_nit }}">
+                            <span ng-show="frmCliente.cliente_nit.$invalid && frmCliente.cliente_nit.$touched">El campo Nit es requerido</span>
+
+                    </form>
+                </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" id="btn-save" ng-click="save(estadomodal,cliente_id)">Guardar Cambios</button>
+                    <button type="button" class="btn btn-primary" id="btn-save" ng-click="save(modalestado,cliente_id)">Guardar Cambios</button>
                 </div>
             </div>
 
@@ -99,7 +98,9 @@
 
 <script src="{{ asset('angular/app.js') }}"></script>
 <script src="{{ asset('angular/angular-route.min.js') }}"></script>
+<script src="{{ asset('angular/ngMask.min.js') }}"></script>
 <script src="{{ asset('angular//controllers/ClienteController.js') }}"></script>
+
 
 
 </html>
